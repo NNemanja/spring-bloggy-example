@@ -10,7 +10,7 @@ public interface BlogPostRepository extends CrudRepository<BlogPost, Integer> {
 
 	BlogPost findByPostTitle(String postTitle);
     
-    List<BlogPost> findByPostDeletedEqualsOrderByIdDesc(int deleted);
+	List<BlogPost> findByPostDeletedEqualsOrderByIdDesc(int deleted);
     
     
 }

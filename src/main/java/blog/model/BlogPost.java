@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -16,28 +15,26 @@ import org.joda.time.format.DateTimeFormat;
 @Entity
 public class BlogPost {
 
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	@NotNull @NotEmpty
 	private String postTitle;
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime postTime;
-    @Column(columnDefinition = "text") @NotNull @NotEmpty
+	@Column(columnDefinition = "text") @NotNull @NotEmpty
 	private String postText;
 	private int postDeleted;
 
     
-	public BlogPost() {
+	public BlogPost() {}
+	
+	public BlogPost(String postTitle, String postText, int postDeleted){
+		this.postTitle = postTitle;
+		this.postTime = new DateTime();
+		this.postText = postText;
+		this.postDeleted = postDeleted;
 	}
-    public BlogPost(String postTitle, String postText, int postDeleted)
-    {
-    	this.postTitle = postTitle;
-    	this.postTime = new DateTime();
-    	this.postText = postText;
-    	this.postDeleted = postDeleted;
-    }
 
 	public int getId() {
 		return id;
@@ -57,8 +54,7 @@ public class BlogPost {
 	public DateTime getPostTime() {
 		return postTime;
 	}
-	public String getFormattedPostTime()
-	{
+	public String getFormattedPostTime(){
 		return DateTimeFormat.forPattern("MM/dd/yyyy HH:mm:ss").print(getPostTime());
 	}
 	
@@ -82,6 +78,5 @@ public class BlogPost {
 	public void setPostDeleted(int postDeleted) {
 		this.postDeleted = postDeleted;
 	}
-	
     
 }
